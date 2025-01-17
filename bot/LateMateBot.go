@@ -28,14 +28,7 @@ func InitAndStartBot() {
 	b.Handle("/get_oopsies", commands.GetRemovedCommand)
 	b.Handle("/help", commands.GetHelp)
 
-	b.Handle(tele.OnText, func(c tele.Context) error {
-		err := c.Send(c.Text())
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		return nil
-	})
+	b.Handle(tele.OnText, commands.GetHelp)
 
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
 	b.Start()
