@@ -1,5 +1,9 @@
 # Step 1: Build the application in a Golang container
+# Step 1: Build the application in a Golang container
 FROM golang:1.23.2-alpine AS builder
+
+# Install build dependencies for CGO
+RUN apk add --no-cache gcc musl-dev
 
 # Set the working directory inside the container
 WORKDIR /app
