@@ -23,6 +23,9 @@ func InitAndStartBot() {
 
 	b.Handle("/late", commands.LateCommand)
 	b.Handle("/all", commands.GetAllCommand)
+	b.Handle("/recent", commands.GetRecentCommand)
+	b.Handle("/oops", commands.RemoveLastLateCommand)
+	b.Handle("/help", commands.GetHelp)
 
 	b.Handle(tele.OnText, func(c tele.Context) error {
 		err := c.Send(c.Text())
