@@ -11,4 +11,5 @@ type Latee struct {
 	AddedAt        time.Time
 	IsDeleted      bool
 	DeletionReason string
+	RemovedAt      time.Time
 }

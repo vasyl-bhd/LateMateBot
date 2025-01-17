@@ -6,6 +6,7 @@ import (
 	"fmt"
 	tele "gopkg.in/telebot.v4"
 	"strings"
+	"time"
 )
 
 func RemoveLastLateCommand(c tele.Context) error {
@@ -28,6 +29,7 @@ func RemoveLastLateCommand(c tele.Context) error {
 	}
 	lastLatee.IsDeleted = true
 	lastLatee.DeletionReason = deletionReason
+	lastLatee.RemovedAt = time.Now()
 	dao.Save(&lastLatee)
 
 	return c.Send(fmt.Sprintf("Ok, I removed late for %s at %s", lastLatee.Name,
