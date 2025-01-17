@@ -14,7 +14,7 @@ func GetRecentCommand(c tele.Context) error {
 	mentions := utils.GetMentions(c.Entities(), c.Text())
 	recentLatees := getLatees(mentions, service.GetRecentLatees(dao.GetAll()))
 
-	response := "Here's a list of the **recent** latees for you:\n"
+	response := getRecentStarterResponse(mentions)
 
 	for _, latee := range recentLatees {
 		response += fmt.Sprintf("Name: %s was late at: %s\n",
@@ -35,4 +35,12 @@ func getLatees(mentions []string, latees []model.Latee) []model.Latee {
 	}
 
 	return latees
+}
+
+func getRecentStarterResponse(mentions []string) string {
+	if len(mentions) == 0 {
+		return "Here's a list of the **recent** latees for you:\n"
+	}
+
+	return fmt.Sprintf("Here's a list of **recent** lates for %v:\n", mentions)
 }
