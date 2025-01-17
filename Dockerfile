@@ -11,6 +11,8 @@ RUN go mod download
 # Copy the entire project into the container
 COPY . .
 
+ENV CGO_ENABLED=1
+
 # Build the application
 RUN go build -o /LateMateBot ./main.go
 
