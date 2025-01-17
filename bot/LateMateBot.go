@@ -5,12 +5,13 @@ import (
 	"fmt"
 	tele "gopkg.in/telebot.v4"
 	"log"
+	"os"
 	"time"
 )
 
 func InitAndStartBot() {
 	pref := tele.Settings{
-		Token:  "BOT_TOKEN",
+		Token:  os.Getenv("BOT_TOKEN"),
 		Poller: &tele.LongPoller{Timeout: 10 * time.Second},
 	}
 
