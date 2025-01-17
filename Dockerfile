@@ -12,7 +12,7 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN go build -o /LateMateBot ./main/main.go
+RUN go build -o /LateMateBot ./main.go
 
 # Step 2: Create a minimal container with only the built binary
 FROM alpine:latest
