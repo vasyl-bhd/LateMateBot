@@ -10,7 +10,7 @@ import (
 
 func InitAndStartBot() {
 	pref := tele.Settings{
-		Token:  "8094075135:AAH84a_BWdReSLCZ2kEGcW45LWfFivoTbr0",
+		Token:  "BOT_TOKEN",
 		Poller: &tele.LongPoller{Timeout: 10 * time.Second},
 	}
 
@@ -21,6 +21,7 @@ func InitAndStartBot() {
 	}
 
 	b.Handle("/late", commands.LateCommand)
+	b.Handle("/all", commands.GetAllCommand)
 
 	b.Handle(tele.OnText, func(c tele.Context) error {
 		err := c.Send(c.Text())

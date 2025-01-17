@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository.
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.dockerhub_username }}
+          password: ${{ secrets.dockerhub_password }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.dockerhub_repo }}:${{ secrets.dockerhub_app }} .
+          docker push ${{ secrets.dockerhub_repo }}:${{ secrets.dockerhub_app }}
+
+  restart_service:
+    runs-on: ubuntu-latest
+    needs: build_and_deploy
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: SSH into Server and Restart Service
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.ssh_host }}
+          username: ${{ secrets.ssh_username }}
+          password: ${{ secrets.ssh_password }}
+          port: ${{ secrets.ssh_port }}
+          script: |
+            cd ${{ secrets.repo_path }}
+            docker compose pull
+            docker compose up -d

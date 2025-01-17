@@ -9,7 +9,8 @@ import (
 var DB *gorm.DB
 
 func Init() *gorm.DB {
-	DB, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	var err error
+	DB, err = gorm.Open(sqlite.Open("latees.db"), &gorm.Config{}) // Assign to the global `DB`z
 	if err != nil {
 		panic("failed to connect database")
 	}
