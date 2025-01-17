@@ -7,7 +7,6 @@ import (
 
 type Latee struct {
 	gorm.Model
-	ID             uint `gorm:"primaryKey;autoIncrement"`
 	Name           string
 	AddedAt        time.Time
 	IsDeleted      bool
