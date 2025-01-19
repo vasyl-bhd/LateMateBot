@@ -6,13 +6,16 @@ import (
 	tele "gopkg.in/telebot.v4"
 	"log"
 	"os"
-	"time"
 )
 
 func InitAndStartBot() {
 	pref := tele.Settings{
-		Token:  os.Getenv("BOT_TOKEN"),
-		Poller: &tele.LongPoller{Timeout: 10 * time.Second},
+		Token: os.Getenv("BOT_TOKEN"),
+		Poller: &tele.Webhook{
+			Endpoint: &tele.WebhookEndpoint{
+				PublicURL: fmt.Sprintf("%s/%s", os.Getenv("BOT_URL"), os.Getenv("BOT_TOKEN")),
+			},
+		},
 	}
 
 	b, err := tele.NewBot(pref)
