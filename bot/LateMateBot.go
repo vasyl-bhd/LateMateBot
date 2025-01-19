@@ -12,6 +12,7 @@ func InitAndStartBot() {
 	pref := tele.Settings{
 		Token: os.Getenv("BOT_TOKEN"),
 		Poller: &tele.Webhook{
+			Listen: ":8000",
 			Endpoint: &tele.WebhookEndpoint{
 				PublicURL: fmt.Sprintf("%s/%s", os.Getenv("BOT_URL"), os.Getenv("BOT_TOKEN")),
 			},
